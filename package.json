@@ -1,0 +1,216 @@
+{
+  "name": "copy-line-reference",
+  "displayName": "Copy Line Reference",
+  "description": "A Visual Studio Code extension that copies file paths with line numbers in GitHub-style format. Works with both selected text and cursor position.",
+  "version": "0.0.1",
+  "publisher": "YOUR_PUBLISHER_ID",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/vscode-ext-line.git"
+  },
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "copy-line-reference.copyPath",
+        "title": "Copy Line Reference: Copy Path"
+      },
+      {
+        "command": "copy-line-reference.copyPathWithCode",
+        "title": "Copy Line Reference: Copy Path with Code"
+      },
+      {
+        "command": "copy-line-reference.copyAbsolutePath",
+        "title": "Copy Line Reference: Copy Absolute Path"
+      },
+      {
+        "command": "copy-line-reference.copyFilename",
+        "title": "Copy Line Reference: Copy Filename"
+      },
+      {
+        "command": "copy-line-reference.copyRelativePath",
+        "title": "Copy Line Reference: Copy Relative Path"
+      },
+      {
+        "command": "copy-line-reference.copyWorkspaceRelativePath",
+        "title": "Copy Line Reference: Copy Workspace Relative Path"
+      },
+      {
+        "command": "copy-line-reference.copyPathWithAISummary",
+        "title": "Copy Line Reference: Copy Path with AI Summary"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "copy-line-reference.copyPath",
+        "key": "cmd+alt+c",
+        "mac": "cmd+alt+c",
+        "win": "ctrl+alt+c",
+        "linux": "ctrl+alt+c",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "copy-line-reference.copyPathWithCode",
+        "key": "cmd+alt+shift+c",
+        "mac": "cmd+alt+shift+c",
+        "win": "ctrl+alt+shift+c",
+        "linux": "ctrl+alt+shift+c",
+        "when": "editorTextFocus"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "copy-line-reference.copyPath",
+          "group": "9_cutcopypaste",
+          "when": "editorTextFocus && config.copy-line-reference.showCopyPath"
+        },
+        {
+          "command": "copy-line-reference.copyPathWithCode",
+          "group": "9_cutcopypaste",
+          "when": "editorTextFocus && config.copy-line-reference.showCopyPathWithCode"
+        },
+        {
+          "command": "copy-line-reference.copyAbsolutePath",
+          "group": "9_cutcopypaste",
+          "when": "editorTextFocus && config.copy-line-reference.showCopyAbsolutePath"
+        },
+        {
+          "command": "copy-line-reference.copyFilename",
+          "group": "9_cutcopypaste",
+          "when": "editorTextFocus && config.copy-line-reference.showCopyFilename"
+        },
+        {
+          "command": "copy-line-reference.copyRelativePath",
+          "group": "9_cutcopypaste",
+          "when": "editorTextFocus && config.copy-line-reference.showCopyRelativePath"
+        },
+        {
+          "command": "copy-line-reference.copyWorkspaceRelativePath",
+          "group": "9_cutcopypaste",
+          "when": "editorTextFocus && config.copy-line-reference.showCopyWorkspaceRelativePath"
+        },
+        {
+          "command": "copy-line-reference.copyPathWithAISummary",
+          "group": "9_cutcopypaste",
+          "when": "editorTextFocus && config.copy-line-reference.showCopyPathWithAISummary && config.copy-line-reference.aiSummaryEnabled"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Copy Line Reference",
+      "properties": {
+        "copy-line-reference.showCopyPath": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show 'Copy Path' in context menu (uses pathType setting)",
+          "order": 1
+        },
+        "copy-line-reference.showCopyPathWithCode": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show 'Copy Path with Code' in context menu (includes code snippet)",
+          "order": 2
+        },
+        "copy-line-reference.showCopyAbsolutePath": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show 'Copy Absolute Path' in context menu (full system path)",
+          "order": 3
+        },
+        "copy-line-reference.showCopyRelativePath": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show 'Copy Relative Path' in context menu (workspace relative)",
+          "order": 4
+        },
+        "copy-line-reference.showCopyWorkspaceRelativePath": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show 'Copy Workspace Relative Path' in context menu (with line numbers)",
+          "order": 5
+        },
+        "copy-line-reference.showCopyFilename": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show 'Copy Filename' in context menu (filename only)",
+          "order": 6
+        },
+        "copy-line-reference.pathType": {
+          "type": "string",
+          "enum": ["relative", "absolute"],
+          "default": "relative",
+          "description": "Default path type for 'Copy Path' command: relative (from workspace root) or absolute file path",
+          "order": 7
+        },
+        "copy-line-reference.showCopyPathWithAISummary": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show 'Copy Path with AI Summary' in context menu (requires Ollama)",
+          "order": 8
+        },
+        "copy-line-reference.aiSummaryEnabled": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enable AI summarization features (requires Ollama server)",
+          "order": 9
+        },
+        "copy-line-reference.ollamaEndpoint": {
+          "type": "string",
+          "default": "http://localhost:11434",
+          "description": "Ollama server endpoint URL",
+          "order": 10
+        },
+        "copy-line-reference.ollamaModel": {
+          "type": "string",
+          "default": "deepseek-r1:8b",
+          "description": "Ollama model to use for AI summarization",
+          "order": 11
+        },
+        "copy-line-reference.aiSummaryTimeout": {
+          "type": "number",
+          "default": 30000,
+          "description": "Timeout in milliseconds for AI summarization requests",
+          "order": 12
+        },
+        "copy-line-reference.defaultSystemPrompt": {
+          "type": "string",
+          "default": "",
+          "description": "Default system prompt to prepend to AI summarization requests. This will be added before the technical summary prompt to provide context or instructions to the AI.",
+          "order": 13
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.85.0",
+    "@types/glob": "^8.1.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "20.x",
+    "@typescript-eslint/eslint-plugin": "^6.15.0",
+    "@typescript-eslint/parser": "^6.15.0",
+    "eslint": "^8.56.0",
+    "glob": "^10.3.10",
+    "mocha": "^10.3.0",
+    "typescript": "^5.3.3",
+    "@vscode/test-electron": "^1.6.1"
+  }
+}

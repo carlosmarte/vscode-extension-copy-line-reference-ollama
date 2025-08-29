@@ -1,0 +1,85 @@
+A Visual Studio Code extension that copies file paths with line numbers in GitHub-style format. Works with both selected text and cursor position.
+
+# Features
+
+Copy Path with Line Numbers: Copy file path with line numbers for selected text or cursor position
+
+Smart Cursor Handling: When no text is selected:
+Copies path with cursor line number (e.g., src/main.ts#L10)
+On empty lines, copies just the file path without line number
+Copy Path with Code: Copy both the file path reference and the code content
+Relative or Absolute Paths: Configure whether to use relative paths (from workspace root) or absolute paths
+
+Multi-line Selection Support: Automatically formats single line (#L10) or range (#L10-15) references
+
+- Copy Absolute path of the file
+- Copy just the file name
+- Copy relative file path with line number
+- Copy relative file path
+- Copy path relative to the workspace
+
+# Usage
+
+## With Text Selection
+
+Select code in the editor
+Use one of the following methods:
+
+## Without Text Selection (Cursor Position)
+
+Place your cursor on any line
+Use the same shortcuts/commands to copy the current line reference
+On empty lines, only the file path will be copied
+
+## Keyboard Shortcuts
+
+Copy Path: Cmd+Alt+C (Mac) / Ctrl+Alt+C (Windows/Linux)
+Copy Path with Code: Cmd+Alt+Shift+C (Mac) / Ctrl+Alt+Shift+C (Windows/Linux)
+
+### Command Palette
+
+Press Cmd+Shift+P (Mac) or Ctrl+Shift+P (Windows/Linux)
+
+## Search for:
+
+Selection Path Copier: Copy Path - Copies path with line numbers
+Selection Path Copier: Copy Path with Code - Copies path and selected code
+
+## Context Menu
+
+Right-click on selected text
+Choose from the copy options in the context menu
+
+# Example Output
+
+Copy Path (with selection):
+src/components/Header.tsx#L25-30
+
+Copy Path (cursor on line 25, no selection):
+src/components/Header.tsx#L25
+
+Copy Path (cursor on empty line):
+src/components/Header.tsx
+
+Copy Path with Code:
+src/components/Header.tsx#L25-30
+
+```jsx
+export const Header: React.FC = () => {
+  return (
+    <header className="main-header">
+      <h1>Welcome</h1>
+    </header>
+  );
+};
+```
+
+# Extension Settings
+
+This extension contributes the following settings:
+
+```
+selection-path-copier.pathType: Choose between path types
+    "relative" (default): Use relative paths from workspace root
+    "absolute": Use absolute file path
+```
